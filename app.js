@@ -137,8 +137,6 @@ function renderScenario() {
 // Render the commit graph
 function renderGraph(scenario) {
     const svg = document.getElementById('graph-svg');
-    const width = svg.clientWidth;
-    const height = svg.clientHeight;
     
     // Clear existing content
     svg.innerHTML = '';
@@ -199,8 +197,13 @@ function drawEdge(svg, child, parent) {
     const distance = Math.sqrt(dx * dx + dy * dy);
     const nodeRadius = 12;
     
-    const offsetX = (dx / distance) * nodeRadius;
-    const offsetY = (dy / distance) * nodeRadius;
+    // Prevent division by zero if commits have identical coordinates
+    let offsetX = 0;
+    let offsetY = 0;
+    if (distance > 0) {
+        offsetX = (dx / distance) * nodeRadius;
+        offsetY = (dy / distance) * nodeRadius;
+    }
     
     line.setAttribute('x1', child.x + offsetX);
     line.setAttribute('y1', child.y + offsetY);
@@ -249,7 +252,10 @@ function drawBranchLabel(svg, branch, commit, index) {
     
     // Background rectangle
     const text = branch.name;
-    const textWidth = text.length * 7 + 10;
+    // Approximate text width (avg character width for monospace-like rendering + padding)
+    const CHAR_WIDTH = 7;
+    const PADDING = 10;
+    const textWidth = text.length * CHAR_WIDTH + PADDING;
     const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     rect.setAttribute('x', commit.x - textWidth / 2);
     rect.setAttribute('y', commit.y + offsetY - 12);
