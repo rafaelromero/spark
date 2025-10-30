@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Repository Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Git Repository Visualizer</h1>
+            <p>Visualize Git commits as connected nodes with parent relationships</p>
+        </header>
+        
+        <div class="controls">
+            <label for="scenario-select">Select Scenario:</label>
+            <select id="scenario-select">
+                <option value="free-explore">Free Explore</option>
+                <option value="free-explore-remote">Free Explore with Remote</option>
+                <option value="upstream-changes">Upstream Changes</option>
+                <option value="rewritten-history">Rewritten Remote History</option>
+                <option value="revert">Revert</option>
+                <option value="cherry-pick">Cherry Pick</option>
+            </select>
+        </div>
+        
+        <div class="scenario-description" id="scenario-description">
+            <h3>Scenario Description</h3>
+            <p id="description-text">Select a scenario to see its description.</p>
+        </div>
+        
+        <div class="visualization" id="visualization">
+            <svg id="graph-svg"></svg>
+        </div>
+        
+        <div class="legend">
+            <h3>Legend</h3>
+            <div class="legend-item">
+                <div class="legend-symbol commit-node"></div>
+                <span>Commit</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol branch-label local-branch"></div>
+                <span>Local Branch</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol branch-label remote-branch"></div>
+                <span>Remote Branch</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol arrow"></div>
+                <span>Parent Relationship</span>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
